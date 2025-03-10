@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Войти
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Войти</h1>
+    <form method="post">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <label for="login">Login</label>
+        <input type="text" autocomplete="off" name="login" id="login"
+               class="form-control" placeholder="Login" pattern="[a-zA-Z0-9]+" required title="только английские буквы и арабские цифры("><br>
+        <label for="password">Password</label>
+        <input type="password" autocomplete="off" name="password"
+               id="password" class="form-control" placeholder="Password" pattern="[a-zA-Z0-9]+" required title="только английские буквы и арабские цифры("><br>
+        <input type="submit" class="btn btn-success" value="Log in">
+    </form>
+</div>
+
+
+{% endblock %}

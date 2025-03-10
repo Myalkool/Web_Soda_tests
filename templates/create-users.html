@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+
+{%block title%}
+Добавление пользователей
+{%endblock%}
+
+
+{%block body%}
+<div class="container mt-5">
+    <h1>Зарегистрироваться</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        <label for="login">Login</label>
+        <input type="text" autocomplete="off" name="login" id="login"
+               class="form-control" placeholder="Login" pattern="[A-Za-z0-9]+" required title="только английские буквы и арабские цифры("><br>
+        <label for="password">Password</label>
+        <input type="password" autocomplete="off" name="password"
+               id="password" class="form-control" placeholder="Password" pattern="[A-Za-z0-9]+" required title="только английские буквы и арабские цифры("><br>
+        <input type="submit" class="btn btn-success" value="Sign up">
+
+    </form>
+</div>
+
+{%endblock%}
