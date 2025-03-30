@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+
+{%block title%}Results{%endblock%}
+
+{%block body%}
+<div class="container-sm">
+  <h1 class="container">Results</h1>
+  <table class="table table-striped">
+    {% for result in results %}
+      <tr>
+        <td class="table-info">{{ result.check }}</td>
+        <td class="{% if result.status == 'success' %}table-{{ result.status }}
+                   {% elif result.status == 'fail' %}table-danger
+                   {% elif result.status == 'error' %}table-warning
+                   {% else %}table-danger{% endif %} position-relative">
+
+          {{ result.status }}
+
+          {% if result.message %}
+          <span class="position-absolute top-50 end-0 translate-middle-y me-2"
+                data-bs-toggle="tooltip"
+                data-bs-title="{{ result.message }}"
+                data-bs-placement="left">
+            <i class="bi bi-info-square fs-6"></i>
+          </span>
+          {% endif %}
+
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+<h4 class="container mt-4 mb-3">Total</h4>
+<table class="table table-striped">
+  <tbody>
+    <tr class="align-middle">
+      <td class="table-success p-2">Success: {{ success_count }}</td>
+      <td class="table-danger p-2">Failed: {{ fail_count }}</td>
+      <td class="table-warning p-2">Errors: {{ error_count }}</td>
+    </tr>
+  </tbody>
+</table>
+  <div class="d-grid gap-2">
+    <a class="btn btn-success" href={{bck_btn}} role="button">Back</a>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  tooltipTriggerList.map(function(tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+})
+</script>
+
+<style>
+  [data-bs-toggle="tooltip"] {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  [data-bs-toggle="tooltip"]:hover {
+    opacity: 1;
+  }
+</style>
+{%endblock%}
